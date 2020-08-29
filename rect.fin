@@ -1,0 +1,38 @@
+MESH FILE_PATH rect.msh DIMENSIONS 2    # se lee la malla
+FINO_PROBLEM thermal   # se indica que se requirere un problema termico
+# FINO_SOLVER PROGRESS
+
+# definicion de parametros del problema
+rc = 7e-4   # [ cm ]
+h = 0.38e-7 # [ cm ]
+
+rho = 54    # [ ohm cm ]
+Rb = 53.6   # [ ohm cm^2 ]
+Cm = 2      # [ Fe-6 cm^{-2} ]
+Zm = 1/(2*pi*Cm)
+
+Vn = 1
+Vm = 0
+
+# la variable k es especial e indica la conductividad del problema térmico
+k = 1/rho
+
+# las condiciones de contorno
+PHYSICAL_GROUP left   BC q=0
+PHYSICAL_GROUP bottom BC T=Vn
+PHYSICAL_GROUP top    BC h=+1/Zm    Tinf=Vm
+PHYSICAL_GROUP right  BC h=-rc^2/Rb Tinf=Vm
+
+FINO_STEP   # se resuelve el problema
+
+# se escribe la funcion T(x,y) en un archivo ASCII llamado rect.dat
+PRINT_FUNCTION FILE_PATH rect.dat T
+
+# por si acaso se generan archivos para ser analizados por postprocesadores
+MESH_POST FILE_PATH rect-results.vtk T
+MESH_POST FILE_PATH rect-results.msh T
+
+# para controlar que el tamaño de la malla sea razonable mostramos esto 
+PRINT "nodos:   " nodes
+PRINT "tiempo:  " time_wall_total "segundos"
+PRINT "memoria: " memory/(1024*1024*1024) "Gb"
