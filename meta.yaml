@@ -2,6 +2,7 @@
 title: Solución de la ecuación del calor en un rectángulo
 fontsize: 11pt
 lang: es-AR
+number-sections: true
 geometry:
 - paper=a4paper
 - left=2.5cm

@@ -94,6 +94,7 @@ for i in $(echo $stuff); do
 #   if [ -e ${i} ]; then 
     pandoc -s   --template=template.tex \
                 --pdf-engine=xelatex \
+                --number-sections \
                 -o $(basename ${i} .md).pdf hash.yaml meta.yaml ${i}
 #   fi  
 done
