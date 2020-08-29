@@ -1,5 +1,6 @@
 ref
 *.msh
 *.vtk
+*.pdf
 rect.dat
 hash.yaml

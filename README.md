@@ -7,14 +7,15 @@ $$
 $$
 
 \noindent
-sobre un dominio rectangular $[0,r_c]\times[0,h]. Las condiciones de contorno son
+sobre un dominio rectangular $[0,r_c]\times[0,h]$. Las condiciones de contorno son
 
 $$
 \begin{cases}
 q^{\prime \prime} = 0 & \text{en $x=0$ (left)} \\
 T(x,y) = V_n & \text{en $y=0$ (bottom)} \\
-q^{\prime \prime} = \frac{1}{Z_m) \cdot(T(x,y) - V_m) & \text{en $y=h$ (top)} \\
-q^{\prime \prime} = -\frac{r_c^2}{R_b) \cdot(T(x,y) - V_m) & \text{en $x=r_c$ (right)}
+q^{\prime \prime} = \frac{1}{Z_m} \cdot(T(x,y) - V_m) & \text{en $y=h$ (top)} \\
+q^{\prime \prime} = -\frac{r_c^2}{R_b} \cdot(T(x,y) - V_m) & \text{en $x=r_c$ (right)}
+\end{cases}
 $$
 
 
