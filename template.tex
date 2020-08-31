@@ -189,7 +189,6 @@ $endif$
   \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
 $if(indent)$
-    \setlength{\parskip}{6pt plus 2pt minus 1pt}
 $else$
 \makeatletter
 \@ifundefined{KOMAClassName}{% if non-KOMA class
@@ -280,7 +279,6 @@ $else$
 $endif$
 $endif$
 \usepackage{graphicx}
-$if(graphics)$
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
@@ -293,28 +291,24 @@ $if(graphics)$
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
-$endif$
 % headers y footers a medida
 \usepackage{lastpage}
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{} % clear all header and footer fields
 $if(title)$
-\lhead{$title$}
+\lhead{Fino test case---$title$}
 $endif$
 \lfoot{\scriptsize{$if(date)$ $date$ $endif$ / $if(hash)$ \texttt{$hash$} $endif$}}
-% \cfoot{\includegraphics[height=10pt]{../by-sa.pdf}}
-% \rfoot{\thepage/\pageref{LastPage}}
-% \rhead{\includegraphics[height=10pt]{../UNRaf_03.png}}
+\rfoot{\thepage/\pageref{LastPage}}
+\rhead{\includegraphics[height=10pt]{logo}}
 \renewcommand{\headrulewidth}{0.0pt}
 \renewcommand{\footrulewidth}{0.4pt}
 
 \fancypagestyle{plain}{%
 \fancyhf{} % clear all header and footer fields
 $if(hash)$
-% \cfoot{\includegraphics[height=10pt]{../by-sa.pdf}}
-\lfoot{\scriptsize{$if(date)$ $date$ $endif$ / $if(hash)$ \texttt{$hash$} $endif$}}
-% \rfoot{\includegraphics[height=10pt]{../UNRaf_03.png}}
+\cfoot{\scriptsize{$if(date)$ $date$ $endif$ / $if(hash)$ \texttt{$hash$} $endif$}}
 $endif$
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}}
@@ -403,6 +397,11 @@ $if(csl-refs)$
   {\par}
 $endif$
 
+\input{syntax}
+\usepackage{subfig}
+% SIunits
+\usepackage{siunitx}
+
 % fuente para los captions de figuras
 \usepackage{caption}
 \renewcommand{\captionfont}{\sf\small}
@@ -443,32 +442,64 @@ $if(logo)$
 $endif$
 $endif$
 
-
-
 \begin{document}
-% vectors done right
-\renewcommand{\vec}[1]{\ensuremath\mathbf{#1}}
-
-~\vspace{2cm plus 0.5cm minus 1cm}
-
-\begin{flushright}
-$if(date)$
-$date$
-$else$
-\today
+$if(has-frontmatter)$
+\frontmatter
 $endif$
-\end{flushright}
-
-$if(to)$
-\vspace{1cm plus 0.5cm minus 1cm}
-\noindent $to$
-$endif$
+% \thispagestyle{empty}
+% \thispagestyle{plain}
+% \thispagestyle{fancy}
 
 $if(title)$
-\noindent Ref: $title$
+$if(beamer)$
+\frame{\titlepage}
+$else$
+\maketitle
+$endif$
+$if(abstract)$
+\begin{abstract}
+$abstract$
+\end{abstract}
+$endif$
 $endif$
 
-\vspace{0.5cm plus 0.25cm minus 0.5cm}
+$for(include-before)$
+$include-before$
+
+$endfor$
+$if(toc)$
+$if(toc-title)$
+\renewcommand*\contentsname{$toc-title$}
+$endif$
+$if(beamer)$
+\begin{frame}[allowframebreaks]
+$if(toc-title)$
+  \frametitle{$toc-title$}
+$endif$
+  \tableofcontents[hideallsubsections]
+\end{frame}
+$else$
+{
+$if(colorlinks)$
+\hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$$endif$}
+$endif$
+\setcounter{tocdepth}{$toc-depth$}
+\tableofcontents
+\pagebreak
+}
+$endif$
+$endif$
+$if(lot)$
+\listoftables
+\pagebreak
+$endif$
+$if(lof)$
+\listoffigures
+\pagebreak
+$endif$
+
+% vectors done right
+\renewcommand{\vec}[1]{\ensuremath\mathbf{#1}}
 
 $if(linestretch)$
 \setstretch{$linestretch$}

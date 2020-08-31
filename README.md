@@ -27,7 +27,7 @@ La solución mediante el método de elementos finitos se obtiene con el programa
 
 En un archivo llamado `rect.geo` se genera un rectángulo de $r_c \times h$ con el extremo izquiero inferior en el origen y genera una malla bi-dimensional de cuadrángulos estructurados. Las unidades están en centímetros. El refinamiento de la malla está dado por las variables `nx` y `ny` que controlan la cantidad de elementos en cada dirección.
 
-```
+```{.c style=c}
 rc = 7e-4;     // [ cm ]
 h = 0.38e-7;   // [ cm ]
 
@@ -70,7 +70,7 @@ Physical Surface("bulk") = {1};
 
 Para resolver la ecuación en derivadas parciales se utiliza el siguiente archivo llamado `rect.fin`:
 
-```
+```{.fino style=fino}
 MESH FILE_PATH rect.msh DIMENSIONS 2    # se lee la malla
 FINO_PROBLEM thermal   # se indica que se requirere un problema termico
 # FINO_SOLVER PROGRESS
@@ -118,7 +118,7 @@ PRINT "memoria: " memory/(1024*1024*1024) "Gb"
 
 En una terminal, se debe llamar a Gmsh con el archivo de entrada `rect.geo` y el parámetro `-2` para generar la malla:
 
-```
+```{.terminal style=terminal}
 $ gmsh -2 rect.geo
 ```
 
@@ -131,7 +131,7 @@ Si se desea modificar el tamaño del dominio o la cantidad de elementos se debe 
 
 Una vez obtenida la malla, se debe llamar a Fino con el archivo de entrada `rect.fin`:
 
-```
+```{.terminal style=terminal}
 $ fino rect.fin
 nodos:          102051
 tiempo:         0.395641        segundos
@@ -141,7 +141,7 @@ memoria:        0.478649        Gb
 El resultado es un archivo llamado `rect.dat` con tres columnas, $x$, $y$ y $T(x,y)$.
 Si se pasa el parámetro `--progress` se indica el progreso del ensamblado de la matrix y de la solución de las ecuaciones con barras de progreso:
 
-```
+```{.terminal style=terminal}
 $ fino rect.fin --progress
 ....................................................................................................
 ----------------------------------------------------------------------------------------------------
